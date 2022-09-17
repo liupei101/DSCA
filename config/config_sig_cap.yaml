@@ -1,0 +1,72 @@
+task: GenericCAPSurv
+experiment: sim
+
+# spliting
+seed_data_split: [0, 1, 2, 3, 4]
+path_data_split: ./data_split/nlst/nlst-seed42-fold{}.npz
+
+# data
+dataset_name: nlst
+magnification: x5_x20 # if task = GenericCAPSurv
+path_patchx20: /NAS01/NLST/PathologySlide/feat-x20-RN50-B-color_norm/pt_files
+path_patchx5: /NAS01/NLST/PathologySlide/feat-x5-RN50-B-color_norm/pt_files
+path_coordx5: /NAS01/NLST/PathologySlide/hier-x5-tiles-s256/patches
+path_label: /NAS01/NLST/Pathology/nlst_path_full.csv
+label_discrete: True
+bins_discrete: 4
+feat_format: pt
+
+# CUDA
+no_cuda: False
+cuda_id: 0 # 0/1
+
+# seed
+seed: 42
+
+# input dim
+dims: 1024-384-384-4 # 1024-512-128-4/1024-256-128-4
+
+# output
+save_path: ./results-nlst-ablation/x20-Transformer_L1-CAPool_no_dw_ks1-Alpha0.2-LR6 # ss
+save_prediction: True
+
+# Patch Embedding
+emb_backbone: capool # if task = GenericCAPSurv
+emb_dw_conv: False
+emb_ksize: 1
+
+# Transformer Encoder
+tra_backbone: Transformer # Nystromformer/Transformer/Conv1D/Conv2D/Identity
+tra_nhead: 8
+tra_num_layers: 1 # 1/2
+tra_ksize: 3 # forConv1D/Conv2D
+tra_dw_conv: False # forConv1D/Conv2D
+tra_epsilon: 0.8 # for SimTransformer
+
+# Model Setting
+pool: gap # max/mean/max_mean/gap
+dropout: 0.6
+
+# loss
+loss: survmle
+alpha: 0.2
+reg_l1: 0.00001
+
+# training
+batch_size: 1
+num_workers: 8
+epochs: 150
+bp_every_iters: 16
+monitor_metrics: loss
+es_patience: 30
+es_warmup: 0
+es_start_epoch: 0
+es_verbose: True
+
+# optimizer and learning rate
+opt: lookahead_adam
+weight_decay: 0.0005
+lr: 0.00006
+opt_eps: null
+opt_betas: null
+opt_momentum: null
