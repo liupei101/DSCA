@@ -20,10 +20,10 @@ Ablation study of dual-stream and cross-attention:
 
 ## Visualization
 Cross-attention maps:
-![res-cmp](./doc/res-cmp.png)
+![vis-cap](./doc/vis-cap.png)
 
 Global attention maps:
-![res-gap](./doc/res-gap.png)
+![vis-gap](./doc/vis-gap.png)
 
 ## More
 
