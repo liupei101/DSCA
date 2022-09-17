@@ -12,10 +12,10 @@
 It's the overview of our DSCA scheme. We illustrate our scheme using lambda=4 and a=256. (a) Spatially-aligned dual-resolution patching: S x and 4S x image are sliced into non-overlapping patches and their features are extracted by a pre-trained model. (b) DSCA architecture. (c) Transformer encoder in DSCA. (d) Cross-attention pooling: it's an implementation of square pooling that pools high-resolution tokens under the guidance of low-resolution ones.
 
 ## Experiments
-Overall performance in WSI-based prognosis (prediction performance measured by 5-fold cross-validation):
+Overall performance in WSI-based prognosis prediction (C-Index performance is measured by 5-fold cross-validation):
 ![res-cmp](./doc/res-cmp.png)
 
-Ablation study of dual-stream and cross-attention:
+Ablation study to dual-stream and cross-attention:
 ![res-ablation](./doc/res-ablation.png)
 
 ## Visualization
@@ -29,7 +29,7 @@ Global attention maps:
 
 Any issues can be sent via E-mail (yuukilp@163.com) or the Issue Page of this repo.
 
-If you found this work helps you more or less, please cite 
+If you find this work helps you more or less, please cite this:
 ```
 @article{liu2022dsca,
   title={DSCA: A Dual-Stream Network with Cross-Attention on Whole-Slide Image Pyramids for Cancer Prognosis},
