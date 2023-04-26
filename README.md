@@ -54,7 +54,7 @@ python3 big_to_small_patching.py \
     /NAS02/ExpData/tcga_brca/tiles-l1-s256
 ```
 
-Finally, we extract the feature of patches at the high- and low-resolution. A detailed tutorial is given in [the fourth tutorial - Extracting-Patch-Features](https://github.com/liupei101/Pipeline-Processing-TCGA-Slides-for-MIL/blob/main/S04-Extracting-Patch-Features.ipynb). Specifically, you could use the following commands for the high- and low-resolution patches.
+Finally, we extract features from the high- and low-resolution image patches. A detailed tutorial is given in [the fourth tutorial - Extracting-Patch-Features](https://github.com/liupei101/Pipeline-Processing-TCGA-Slides-for-MIL/blob/main/S04-Extracting-Patch-Features.ipynb). Specifically, you could use the following command for the high- and low-resolution patches.
 ```bash
 # Sample patches of SIZE x SIZE at LEVEL 
 LEVEL=2 # for extracting features from the low-resolution patches
@@ -122,10 +122,10 @@ We use a `YAML` file to configure the related paths, the networks, and the train
 We show some important configurations as follows:
 - `task`: `HierSurv`. It means loading a DSCA network.
 - `magnification`: `x5_x20`. It means loading dual-stream patches.
-- `dims`: `1024-384-384-4`. It means the input dimension of different layers in DSCA. These layers are input layer, patch feature embedding layer, hidden layer, and output layer, from left and right. 
+- `dims`: `1024-384-384-4`. It means the input dimensionality of different layers in DSCA. These layers are input layer, patch feature embedding layer, hidden layer, and output layer, from left and right. 
 
 
-The pseudo-code of DSCA implementation (simplified for better understanding) is as follows:
+The pseudo-codes of DSCA implementation (simplified for better understanding) are given as follows:
 ```python
 class DSCA(nn.Module):
     """A hierarchical network for WSI with multiple magnitudes.
