@@ -167,7 +167,9 @@ class WSIGenericCAPNet(nn.Module):
 
         return out
 
-
+###########################################################
+#                  This is DSCA network
+###########################################################
 class WSIHierNet(nn.Module):
     """
     A hierarchical network for WSI with multiple magnitudes.

@@ -1,61 +1,64 @@
-task: HierSurv
-experiment: sim
+task: HierSurv # use low and high resolutions (dual stream)
+experiment: sim # default sim
 
 # spliting
-seed_data_split: [0, 1, 2, 3, 4]
-path_data_split: ./data_split/nlst/nlst-seed42-fold{}.npz
+seed_data_split: [0, 1, 2, 3, 4] # for 5-fold evaluation
+path_data_split: ./data_split/tcga_brca/tcga_brca-seed54-fold{}.npz
 
 # data
-dataset_name: nlst
-magnification: x5_x20 # x5/x20
-path_patchx20: /NAS01/NLST/PathologySlide/feat-x20-RN50-B-color_norm/pt_files
-path_patchx5: /NAS01/NLST/PathologySlide/feat-x5-RN50-B-color_norm/pt_files
-path_coordx5: /NAS01/NLST/PathologySlide/hier-x5-tiles-s256/patches
-path_label: /NAS01/NLST/Pathology/nlst_path_full.csv
-label_discrete: True
-bins_discrete: 4
-feat_format: pt
+dataset_name: tcga_brca
+magnification: x5_x20 # default setting, using low and high resolutions
+path_patchx20: /NAS02/ExpData/tcga_brca/feats-l1-s256-RN50-color_norm/pt_files
+path_patchx5: /NAS02/ExpData/tcga_brca/feats-l2-s256-RN50-color_norm/pt_files
+path_coordx5: /NAS02/ExpData/tcga_brca/tiles-l2-s256/patches
+path_label: ./data_split/tcga_brca/tcga_brca_path_full.csv
+label_discrete: True # default setting
+bins_discrete: 4 # default setting, bins to divide survival times
+feat_format: pt # default setting, the format of files storing patch features
+num_patch_sampling: -1 # not sampling patches
 
 # CUDA
 no_cuda: False
-cuda_id: 0 # 0/1
+cuda_id: 0 # use which gpu
 
 # seed
 seed: 42
 
 # input dim
-dims: 1024-384-384-4 # 1024-512-128-1/1024-256-128-1
+dims: 1024-384-384-4 # dims: input-emb-hid-output
 
 # output
-save_path: ./results-nlst-hier/Nystrom_L1-Dim384-CAPool-Alpha0.2 # ss
+save_path: ./results-brca-hier/reproducing_dsca # ss
 save_prediction: True
 
 # Patch Embedding
-emb_x5_backbone: conv # avgpool/gapool/conv
-emb_x5_ksize: [1, 5]
-emb_x20_backbone: capool # avgpool/gapool/conv/capool
-emb_x20_dw_conv: False
-emb_x20_ksize: [1, 3]
+emb_x5_backbone: conv1d # avgpool / gapool / conv1d
+emb_x5_ksize: 5 # kernel size of conv1d used in low-stream
+emb_x20_backbone: capool # pooling function for high-resolution patches, avgpool / gapool / conv / capool, default capool (cross-attention)
+emb_x20_dw_conv: False # won't be used when capool
+emb_x20_ksize: 3 # won't be used when capool
 
 # Transformer Encoder
-tra_backbone: Nystromformer # Nystromformer/Transformer/Conv1D/Conv2D/Identity
+tra_position_emb: True # if using patch positional embedding, default True
+tra_backbone: Transformer # Nystromformer / Transformer, default Transformer
 tra_nhead: 8
-tra_num_layers: 1 # 1/2
-tra_ksize: 3 # forConv1D/Conv2D
-tra_dw_conv: False # forConv1D/Conv2D
-tra_epsilon: 0.8 # for SimTransformer
+tra_num_layers: 1 # 1 / 2, default using one layer.
+tra_ksize: 3 # only used for Conv1D / Conv2D, default 3
+tra_dw_conv: False # only used for Conv1D / Conv2D, default False.
+tra_epsilon: 0.8 # won't be used in DSCA.
 
 # Model Setting
-join: [post, pre]
-pool: gap # max/mean/max_mean/gap
+join: post # using post or pre fusion for dual-stream features, default post .
+fusion: fusion # the way of fusing dual-stream feature, fusion / cat, default fusion (adding dual-stream features).
+pool: gap # final instance pooling, max / mean / max_mean / gap, default gap.
 dropout: 0.6
 
-# loss
+# loss (default setting)
 loss: survmle
-alpha: 0.2
+alpha: 0.1
 reg_l1: 0.00001
 
-# training
+# training (default setting)
 batch_size: 1
 num_workers: 8
 epochs: 150
@@ -66,7 +69,7 @@ es_warmup: 0
 es_start_epoch: 0
 es_verbose: True
 
-# optimizer and learning rate
+# optimizer and learning rate (default setting)
 opt: lookahead_adam
 weight_decay: 0.0005
 lr: 0.00008
