@@ -9,7 +9,7 @@
 *TL;DR*: 
 > Existing methods of survival analysis on multi-scale WSIs still face two major problems: high computational cost and the unnoticed semantical gap in multi-resolution feature fusion. Inspired by modern CNNs, this work proposes to efficiently exploit WSI pyramids from a new perspective, the dual-stream network with cross-attention (DSCA). Our key idea is to utilize two sub-streams to process the WSI patches with two resolutions, where a square pooling is devised in a high-resolution stream to significantly reduce computational costs, and a cross-attention based method is proposed to properly handle the fusion of dual-stream features. Our scheme could be easily extended to multi-branch for multi-resolution WSIs. The experiments on three publicly-available datasets confirm the effectiveness of DSCA in predictive performance and computational cost.
 
-<img src="./doc/dsca-arch.png" width="60%" align='left' />
+<img src="./doc/dsca-arch.png" width="70%" align='left' />
 
 ## DSCA walkthrough 
 
@@ -207,6 +207,12 @@ Then you can train DSCA using the following command:
 ```bash
 python3 main.py --config config/config_hier.yaml --multi_run
 ```
+
+### Main results
+
+<img src="./doc/res-cmp.png" width="70%" align='left' />
+
+<img src="./doc/res-ablation.png" width="70%" align='left' />
 
 ## Citation
 
