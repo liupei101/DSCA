@@ -210,9 +210,9 @@ python3 main.py --config config/config_hier.yaml --multi_run
 
 ### Main results
 
-<img src="./doc/res-cmp.png" width="70%" align='left' />
+<img src="./doc/res-cmp.png" width="100%" align='left' />
 
-<img src="./doc/res-ablation.png" width="70%" align='left' />
+<img src="./doc/res-ablation.png" width="100%" align='left' />
 
 ## Citation
 
