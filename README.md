@@ -2,7 +2,7 @@
 
 **Preprint**: [arXiv:2206.05782](https://arxiv.org/abs/2206.05782)
 
-**Journal link**: coming soon (to be appeared in the journal of *Expert System with Application*).
+**Journal link**: [j.eswa.2023.120280](https://doi.org/10.1016/j.eswa.2023.120280), *Expert System with Application*.
 
 ## A brief introduction
 
@@ -220,6 +220,17 @@ Any issues can be sent via E-mail (yuukilp@163.com) or be posted on the issue pa
 
 If you find this work helps you more or less, please cite it via
 ```
+@article{LIU2023120280,
+  author = {Liu, Pei and Fu, Bo and Ye, Feng and Yang, Rui and Ji, Luping},
+  doi = {https://doi.org/10.1016/j.eswa.2023.120280},
+  issn = {0957-4174},
+  journal = {Expert Systems with Applications},
+  pages = {120280},
+  title = {{DSCA: A dual-stream network with cross-attention on whole-slide image pyramids for cancer prognosis}},
+  url = {https://www.sciencedirect.com/science/article/pii/S0957417423007820},
+  year = {2023}
+}
+
 @article{liu2022dsca,
   title={DSCA: A Dual-Stream Network with Cross-Attention on Whole-Slide Image Pyramids for Cancer Prognosis},
   author={Liu, Pei and Fu, Bo and Ye, Feng and Yang, Rui and Xu, Bin and Ji, Luping},
@@ -227,3 +238,4 @@ If you find this work helps you more or less, please cite it via
   year={2022}
 }
 ```
+or `P. Liu, B. Fu, F. Ye, R. Yang, and L. Ji, “DSCA: A dual-stream network with cross-attention on whole-slide image pyramids for cancer prognosis,” Expert Syst. Appl., p. 120280, 2023, doi: https://doi.org/10.1016/j.eswa.2023.120280.`.
