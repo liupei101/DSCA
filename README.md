@@ -4,7 +4,7 @@
 
 **Preprint**: [arXiv:2206.05782](https://arxiv.org/abs/2206.05782)
 
-**Dateset link**: [NLST](https://cdas.cancer.gov/datasets/nlst/), [TCGA-BRCA](https://portal.gdc.cancer.gov/projects/TCGA-BRCA), and [TCGA-LGG](https://portal.gdc.cancer.gov/projects/TCGA-LGG). Please see the details of data preparation at [DSCA walkthrough - Data preparation](#data-preparation).
+**Dataset link**: [NLST](https://cdas.cancer.gov/datasets/nlst/), [TCGA-BRCA](https://portal.gdc.cancer.gov/projects/TCGA-BRCA), and [TCGA-LGG](https://portal.gdc.cancer.gov/projects/TCGA-LGG). Please see the details of data preparation at [DSCA walkthrough - Data preparation](#data-preparation).
 
 ## Brief introduction
 
