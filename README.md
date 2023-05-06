@@ -1,15 +1,17 @@
 # DSCA: A Dual-Stream Network with Cross-Attention on Whole-Slide Image Pyramids for Cancer Prognosis
 
-**Preprint**: [arXiv:2206.05782](https://arxiv.org/abs/2206.05782)
-
 **Journal link**: [j.eswa.2023.120280](https://doi.org/10.1016/j.eswa.2023.120280), *Expert System with Application*.
 
-## A brief introduction
+**Preprint**: [arXiv:2206.05782](https://arxiv.org/abs/2206.05782)
+
+**Dateset link**: [NLST](https://cdas.cancer.gov/datasets/nlst/), [TCGA-BRCA](https://portal.gdc.cancer.gov/projects/TCGA-BRCA), and [TCGA-LGG](https://portal.gdc.cancer.gov/projects/TCGA-LGG). Please see the details of data preparation at [DSCA walkthrough - Data preparation](#data-preparation).
+
+## Brief introduction
+
+<img src="./doc/dsca-arch.png" width="70%" align='left' />
 
 *TL;DR*: 
 > Existing methods of survival analysis on multi-scale WSIs still face two major problems: high computational cost and the unnoticed semantical gap in multi-resolution feature fusion. Inspired by modern CNNs, this work proposes to efficiently exploit WSI pyramids from a new perspective, the dual-stream network with cross-attention (DSCA). Our key idea is to utilize two sub-streams to process the WSI patches with two resolutions, where a square pooling is devised in a high-resolution stream to significantly reduce computational costs, and a cross-attention based method is proposed to properly handle the fusion of dual-stream features. Our scheme could be easily extended to multi-branch for multi-resolution WSIs. The experiments on three publicly-available datasets confirm the effectiveness of DSCA in predictive performance and computational cost.
-
-<img src="./doc/dsca-arch.png" width="70%" align='left' />
 
 ## DSCA walkthrough 
 
