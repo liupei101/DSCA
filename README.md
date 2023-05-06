@@ -1,6 +1,6 @@
 # DSCA: A Dual-Stream Network with Cross-Attention on Whole-Slide Image Pyramids for Cancer Prognosis
 
-**Journal link**: [j.eswa.2023.120280](https://doi.org/10.1016/j.eswa.2023.120280), *Expert System with Application*.
+**Journal link**: [j.eswa.2023.120280](https://doi.org/10.1016/j.eswa.2023.120280), *Expert Systems With Applications*.
 
 **Preprint**: [arXiv:2206.05782](https://arxiv.org/abs/2206.05782)
 
