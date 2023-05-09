@@ -227,6 +227,7 @@ If you find this work helps you more or less, please cite it via
   doi = {https://doi.org/10.1016/j.eswa.2023.120280},
   issn = {0957-4174},
   journal = {Expert Systems with Applications},
+  volume = {227},
   pages = {120280},
   title = {{DSCA: A dual-stream network with cross-attention on whole-slide image pyramids for cancer prognosis}},
   url = {https://www.sciencedirect.com/science/article/pii/S0957417423007820},
