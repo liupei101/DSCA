@@ -6,12 +6,30 @@
 
 **Dataset link**: [NLST](https://cdas.cancer.gov/datasets/nlst/), [TCGA-BRCA](https://portal.gdc.cancer.gov/projects/TCGA-BRCA), and [TCGA-LGG](https://portal.gdc.cancer.gov/projects/TCGA-LGG). Please see the details of data preparation at [DSCA walkthrough - Data preparation](#data-preparation).
 
-## Brief introduction
+## Overview
 
 <img src="./doc/dsca-arch.png" width="70%" align='left' />
 
 *TL;DR*: 
 > Existing methods of survival analysis on multi-scale WSIs still face two major problems: high computational cost and the unnoticed semantical gap in multi-resolution feature fusion. Inspired by modern CNNs, this work proposes to efficiently exploit WSI pyramids from a new perspective, the dual-stream network with cross-attention (DSCA). Our key idea is to utilize two sub-streams to process the WSI patches with two resolutions, where a square pooling is devised in a high-resolution stream to significantly reduce computational costs, and a cross-attention based method is proposed to properly handle the fusion of dual-stream features. Our scheme could be easily extended to multi-branch for multi-resolution WSIs. The experiments on three publicly-available datasets confirm the effectiveness of DSCA in predictive performance and computational cost.
+
+## Pre-requisites
+
+Our experiments are run on a machine with 
+- linux, Ubuntu 18.04;
+- 2 NVIDIA V100s (32G) GPUs, CUDA version 11.6 and cudnn version 10.2;
+- python packages: torch (1.9.0+cu111), numpy (1.19.5), pyyaml (6.0), pandas (1.1.5), h5py (3.1.0), scikit-learn (0.24.2), nystrom-attention (0.0.11).
+
+### for pip or conda users
+
+Full requirements are provided at [requirements.txt](./doc/requirements.txt).
+
+### for docker users
+
+As an alternative, you could use our Docker image:
+```bash
+docker pull yuukilp/deepath
+```  
 
 ## DSCA walkthrough 
 
@@ -21,7 +39,11 @@ Here we show **how to run DSCA** for cancer prognosis using WSI pyramids. The da
 
 First of all, you should download the slides from the project `TCGA-BRCA` in official TCGA website. The details regarding slide donwload can be found at [the first tutorial - Downloading-Slides-from-TCGA](https://github.com/liupei101/Pipeline-Processing-TCGA-Slides-for-MIL/blob/main/S01-Downloading-Slides-from-TCGA.ipynb) and [the second tutorial - Reorganizing-Slides-at-Patient-Level](https://github.com/liupei101/Pipeline-Processing-TCGA-Slides-for-MIL/blob/main/S02-Reorganizing-Slides-at-Patient-Level.ipynb). **Note** that the dataset label of patient survival is available at `./data_split/tcga_brca/tcga_brca_path_full.csv` so you can skip some steps of label data acquisition in the second tutorial. 
 
-Then, just like most procedures of WSI analysis, we process each WSI into small patches. A detailed tutorial is given in [the third tutorial - Segmenting-and-Patching-Slides](https://github.com/liupei101/Pipeline-Processing-TCGA-Slides-for-MIL/blob/main/S03-Segmenting-and-Patching-Slides.ipynb). Specifically, to obtain the region-aligned patches at a high resolution and a low one, we first process each WSI into patches at a low resolution (`level = 2`, downsampled `16x`) using the command as follows
+Then, just like most procedures of WSI analysis, we process each WSI into small patches. A detailed tutorial is given in [the third tutorial - Segmenting-and-Patching-Slides](https://github.com/liupei101/Pipeline-Processing-TCGA-Slides-for-MIL/blob/main/S03-Segmenting-and-Patching-Slides.ipynb). In DSCA, we prepare high- and low-resolution patches. Their details are given as follows.
+
+#### low-resolution patches 
+
+Specifically, to obtain the region-aligned patches at a high resolution and a low one, we first process each WSI into patches at a low resolution (`level = 2`, downsampled `16x`) using the command as follows
 ```bash
 # Sample patches of SIZE x SIZE at LEVEL 
 LEVEL=2
@@ -49,12 +71,16 @@ CUDA_VISIBLE_DEVICES=0 python3 create_patches_fp.py \
     --no_auto_skip --in_child_dir
 ```
 
+#### high-resolution patches
+
 And then we run the script `./tools/big_to_small_patching.py` to obtain aligned high-resolution patches (`level = 1`, downsampled `4x`) by directly transforming the coordinates of low-resolution patches, using the following command
 ```bash
 python3 big_to_small_patching.py \
     /NAS02/ExpData/tcga_brca/tiles-l2-s256 \
     /NAS02/ExpData/tcga_brca/tiles-l1-s256
 ```
+
+#### dual-stream patch features
 
 Finally, we extract features from the high- and low-resolution image patches. A detailed tutorial is given in [the fourth tutorial - Extracting-Patch-Features](https://github.com/liupei101/Pipeline-Processing-TCGA-Slides-for-MIL/blob/main/S04-Extracting-Patch-Features.ipynb). Specifically, you could use the following command for the high- and low-resolution patches.
 ```bash
@@ -86,6 +112,8 @@ CUDA_VISIBLE_DEVICES=0 python3 extract_features_fp.py \
     --color_norm \
     --slide_in_child_dir --no_auto_skip
 ```
+
+#### data overview
 
 Your file structure is expected to be appeared as follows:
 ```
@@ -232,13 +260,6 @@ If you find this work helps you more or less, please cite it via
   title = {{DSCA: A dual-stream network with cross-attention on whole-slide image pyramids for cancer prognosis}},
   url = {https://www.sciencedirect.com/science/article/pii/S0957417423007820},
   year = {2023}
-}
-
-@article{liu2022dsca,
-  title={DSCA: A Dual-Stream Network with Cross-Attention on Whole-Slide Image Pyramids for Cancer Prognosis},
-  author={Liu, Pei and Fu, Bo and Ye, Feng and Yang, Rui and Xu, Bin and Ji, Luping},
-  journal={arXiv preprint arXiv:2206.05782},
-  year={2022}
 }
 ```
 or `P. Liu, B. Fu, F. Ye, R. Yang, and L. Ji, “DSCA: A dual-stream network with cross-attention on whole-slide image pyramids for cancer prognosis,” Expert Syst. Appl., p. 120280, 2023, doi: https://doi.org/10.1016/j.eswa.2023.120280.`.
