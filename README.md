@@ -1,10 +1,6 @@
 # DSCA: A Dual-Stream Network with Cross-Attention on Whole-Slide Image Pyramids for Cancer Prognosis
 
-**Journal link**: [j.eswa.2023.120280](https://doi.org/10.1016/j.eswa.2023.120280), *Expert Systems With Applications*.
-
-**Preprint**: [arXiv:2206.05782](https://arxiv.org/abs/2206.05782)
-
-**Dataset link**: [NLST](https://cdas.cancer.gov/datasets/nlst/), [TCGA-BRCA](https://portal.gdc.cancer.gov/projects/TCGA-BRCA), and [TCGA-LGG](https://portal.gdc.cancer.gov/projects/TCGA-LGG). Please see the details of data preparation at [DSCA walkthrough - Data preparation](#data-preparation).
+[[arXiv]](https://arxiv.org/abs/2206.05782) | [[Journal-ESWA]](https://doi.org/10.1016/j.eswa.2023.120280) | [[NLST dataset]](https://cdas.cancer.gov/datasets/nlst/) | [[TCGA datasets]](https://portal.gdc.cancer.gov/projects)
 
 ## Overview
 
