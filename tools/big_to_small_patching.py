@@ -69,6 +69,11 @@ def coords_x5_to_x20(path_patchi, path_patcho, patch_scale=4):
 
     scaled_coords = scaled_coords[1:] # ignore the first row
     scaled_attrs['save_path'] = osp.dirname(path_patcho)
+
+    # compatible with OpenSlide - read_region(slide, buf, x, y, level, w, h)
+    # refer to issues https://github.com/liupei101/DSCA/issues/8 
+    #             and https://github.com/liupei101/DSCA/issues/3
+    scaled_coords = scaled_coords.astype(np.int64) 
     save_hdf5(path_patcho, {'coords': scaled_coords}, {'coords': scaled_attrs}, mode='w')
 
 def process_coords(dir_read, dir_save):
